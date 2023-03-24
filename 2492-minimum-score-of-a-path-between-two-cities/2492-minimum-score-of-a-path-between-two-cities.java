@@ -48,8 +48,7 @@ class Solution {
             if (!vis[child]) {
                 dfs(child, vis);
             }
+            
         }
-    }
-
-    
+    }    
 }
