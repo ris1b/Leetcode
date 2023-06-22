@@ -1,9 +1,10 @@
 class Solution {
     int[][] dp;
     public int maxProfit(int[] prices, int fee) {
-        dp = new int[prices.length][2];
-        for(int i = 0; i < prices.length; i++)
-            Arrays.fill(dp[i], -1);
+        dp = new int[2][prices.length];
+
+        Arrays.fill(dp[0], -1);
+        Arrays.fill(dp[1], -1);
 
         return pay(prices, fee,0, 0);
     }
@@ -11,7 +12,7 @@ class Solution {
     public int pay(int[] prices, int fee, int holding, int day) {
         if (day == prices.length) return 0;
 
-        if (dp[day][holding]!=-1) return dp[day][holding];
+        if (dp[holding][day]!=-1) return dp[holding][day];
         
         // skip
         int ans = pay(prices, fee, holding, day+1);
@@ -23,7 +24,8 @@ class Solution {
             // sold stock    
             ans = Math.max(ans, pay(prices, fee, 0, day+1) + prices[day] - fee);
         }
-        dp[day][holding] = ans;
+        dp[holding][day] = ans;
+        
         return ans;
     }
 }
